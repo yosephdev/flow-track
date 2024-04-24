@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h3 class="blue-text text-darken-3 center-align">Categories</h3>
+
+  <div class="row">
+    <div class="col s12 center-align">
+      <a href="{{ url_for('add_category') }}" class="btn-large blue darken-3 waves-effect waves-light">
+        <i class="material-icons left">add</i>
+        Add Category
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    {% for category in categories %}
+    <div class="col s12 m6 l4">
+      <div class="card blue darken-3">
+        <div class="card-content white-text">
+          <span class="card-title">{{ category.category_name }}</span>
+          <p>{{ category.category_description }}</p>
+        </div>
+        <div class="card-action">
+          <a href="#" class="white-text">Edit</a>
+          <a href="#" class="white-text">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
