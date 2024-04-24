@@ -4,6 +4,7 @@ from sqlalchemy.orm import validates
 from datetime import datetime
 
 class Category(db.Model):
+    __tablename__ = 'public.category'
     """
     Represents a category for tasks.
 
@@ -37,6 +38,7 @@ class Category(db.Model):
 
 
 class Task(db.Model):
+    __tablename__ = 'public.task'
     """
     Represents a task.
 
@@ -54,7 +56,7 @@ class Task(db.Model):
     task_description = db.Column(db.Text, nullable=False)
     is_urgent = db.Column(db.Boolean, default=False, nullable=False)
     due_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    category_id = db.Column(db.Integer, db.ForeignKey("category.id", ondelete="CASCADE"), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("public.category.id", ondelete="CASCADE"), nullable=False)
 
     def __repr__(self):
         """Represent the task as a string."""
