@@ -2,12 +2,12 @@
 
 ## Learning Outcomes
 In this project, we will learn:
-- How to perform full CRUD (Create, Read, Update, Delete) functionality with a database using Flask.
-- Implementation of HTML-based user interfaces to demonstrate CRUD operations.
-- Styling user interfaces using the Materialize framework for enhanced user experience.
+- How to create a task management application using Flask and SQLAlchemy.
+- Implementing HTML-based user interfaces to demonstrate CRUD (Create, Read, Update, Delete) operations.
+- Styling the user interfaces using the Materialize CSS framework for an enhanced user experience.
 
 ## Project Overview
-The task manager application will include the following features:
+The Flow Track task manager application will include the following features:
 - Display a summary of tasks on the home page, including task name, due date, urgency, category, and description.
 - Users can create, view, edit, and delete tasks.
 - Users can perform CRUD operations for task categories as well.
@@ -15,10 +15,10 @@ The task manager application will include the following features:
 
 ## Project Structure
 The project will be structured as follows:
-- **app.py**: Main Flask application file containing route definitions and CRUD operations.
+- **run.py**: Main Flask application file containing route definitions and CRUD operations.
 - **templates/**: Directory containing HTML templates for rendering user interfaces.
 - **static/**: Directory for static assets such as CSS, JavaScript, and images.
-- **database.py**: File containing database models and SQLAlchemy configuration.
+- **taskmanager/**: Python package containing the application's models, routes, and tests.
 
 ## Getting Started
 To run the project locally, follow these steps:
@@ -31,4 +31,4 @@ To run the project locally, follow these steps:
 [Link to project demo](#) - (coming soon)
 
 ## Credits
-This project was created by Tim as a mini-project for learning relational database management systems.
+This project is created by Yoseph as a mini-project for learning relational database management systems and Flask web development.
