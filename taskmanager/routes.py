@@ -45,3 +45,13 @@ def add_task():
         flash("Task Added Successfully")
         return redirect(url_for("tasks"))
     return render_template("add_task.html", categories=categories)
+
+@app.route("/edit_category/<int:category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    category = Category.query.get_or_404(category_id)
+    if request.method == "POST":
+        category.category_name = request.form.get("category_name")
+        db.session.commit()
+        flash("Category Updated Successfully")
+        return redirect(url_for("categories"))
+    return render_template("edit_category.html", category=category)
