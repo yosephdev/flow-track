@@ -27,7 +27,7 @@
                 </a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="#">New Task</a></li>
+                    <li><a href="{{ url_for('add_task') }}">New Task</a></li>
                     <li><a href="{{ url_for('categories') }}">Categories</a></li>
                 </ul>
             </div>
@@ -35,7 +35,7 @@
 
         <ul class="sidenav" id="mobile-demo">
             <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="#">New Task</a></li>
+            <li><a href="{{ url_for('add_task') }}">New Task</a></li>
             <li><a href="{{ url_for('categories') }}">Categories</a></li>
         </ul>
 
@@ -57,7 +57,7 @@
                     <h5 class="white-text">Quick Links</h5>
                     <ul>
                         <li><a class="grey-text text-lighten-3" href="{{ url_for('home') }}">Home</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#">New Task</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('add_task') }}">New Task</a></li>
                         <li><a class="grey-text text-lighten-3" href="{{ url_for('categories') }}">Categories</a></li>
                         <li><a class="grey-text text-lighten-3" href="#">About</a></li>
                     </ul>
