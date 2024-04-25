@@ -43,7 +43,7 @@ def add_task():
         db.session.add(task)
         db.session.commit()
         flash("Task Added Successfully")
-        return redirect(url_for("tasks"))
+        return redirect(url_for("home"))
     return render_template("add_task.html", categories=categories)
 
 @app.route("/edit_category/<int:category_id>", methods=["GET", "POST"])
