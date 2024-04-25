@@ -1,36 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
-  initSidenav();
-  initDatepicker();
-  initSelect();
-});
-
-const initSidenav = () => {
-  const sidenav = document.querySelectorAll(".sidenav");
+document.addEventListener("DOMContentLoaded", function() {
+  // sidenav initialization
+  let sidenav = document.querySelectorAll(".sidenav");
   M.Sidenav.init(sidenav, {
     edge: 'left',
     inDuration: 250,
     outDuration: 200,
     draggable: true
   });
-};
 
-const initDatepicker = () => {
-  const datepicker = document.querySelectorAll(".datepicker");
-  const {
-    Datepicker
-  } = M;
-  Datepicker.init(datepicker, {
+  // datepicker initialization
+  let datepicker = document.querySelectorAll(".datepicker");
+  M.Datepicker.init(datepicker, {
     format: "dd mmmm, yyyy",
-    i18n: {
-      done: "Select"
-    }
+    i18n: {done: "Select"}
   });
-};
 
-const initSelect = () => {
-  const selects = document.querySelectorAll("select");
-  const {
-    FormSelect
-  } = M;
-  FormSelect.init(selects);
-};
+  // select initialization
+  let selects = document.querySelectorAll("select");
+  M.FormSelect.init(selects);
+
+  // collapsible initialization
+  let collapsibles = document.querySelectorAll(".collapsible");
+  M.Collapsible.init(collapsibles, {
+    accordion: false
+  });
+});
