@@ -1,10 +1,7 @@
 from taskmanager import db
-from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.orm import validates
 from datetime import datetime
 
 class Category(db.Model):
-    __tablename__ = 'public.category'
     """
     Represents a category for tasks.
 
@@ -15,22 +12,8 @@ class Category(db.Model):
     """
     # schema for the Category model
     id = db.Column(db.Integer, primary_key=True)
-
-    @hybrid_property
-    def category_name(self):
-        return self._category_name
-
-    @category_name.setter
-    def category_name(self, value):
-        self._category_name = value.strip()
-
-    @validates('category_name')
-    def validate_category_name(self, key, value):
-        if len(value) > 25:
-            raise ValueError('Category name must be 25 characters or less')
-        return value
-
-    tasks = db.relationship("Task", backref="category", cascade="save-update, merge, delete, delete-orphan", lazy=True)
+    category_name = db.Column(db.String(25), unique=True, nullable=False)
+    tasks = db.relationship("Task", backref="category", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         """Represent the category as a string."""
@@ -38,7 +21,6 @@ class Category(db.Model):
 
 
 class Task(db.Model):
-    __tablename__ = 'public.task'
     """
     Represents a task.
 
@@ -56,7 +38,7 @@ class Task(db.Model):
     task_description = db.Column(db.Text, nullable=False)
     is_urgent = db.Column(db.Boolean, default=False, nullable=False)
     due_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    category_id = db.Column(db.Integer, db.ForeignKey("public.category.id", ondelete="CASCADE"), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id", ondelete="CASCADE"), nullable=False)
 
     def __repr__(self):
         """Represent the task as a string."""
