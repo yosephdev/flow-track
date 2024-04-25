@@ -16,14 +16,19 @@
   <div class="row">
     {% for category in categories %}
     <div class="col s12 m6 l4">
-      <div class="card blue darken-3">
+      <div class="card blue darken-3 center-align">
         <div class="card-content white-text">
-          <span class="card-title">{{ category.category_name }}</span>
-          <p>{{ category.category_description }}</p>
+          <span class="card-title">{{ category.category_name }}</span>        
         </div>
         <div class="card-action">
-          <a href="#" class="white-text">Edit</a>
-          <a href="#" class="white-text">Delete</a>
+          <a href="#" class="waves-effect waves-light btn green btn-margin-right">
+            <i class="material-icons left">edit</i>
+            Edit
+          </a>
+          <a href="#" class="waves-effect waves-light btn red">
+            <i class="material-icons left">delete</i>
+            Delete
+          </a>
         </div>
       </div>
     </div>
