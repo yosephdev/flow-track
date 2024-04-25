@@ -4,7 +4,7 @@ from taskmanager.models import Category, Task
 
 @app.route("/")
 def home():
-    tasks = list(Task.query.all())
+    tasks = list(Task.query.options(db.joinedload(Task.category)).order_by(Task.due_date.desc()).all())
     return render_template("tasks.html", tasks=tasks)
 
 @app.route("/categories")
