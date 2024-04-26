@@ -8,15 +8,12 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 app.config.from_object(Config)
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-if os.environ.get("DEVELOPMENT") == "True":
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
-else:
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+
+db = SQLAlchemy(app)
+
+uri = app.config["SQLALCHEMY_DATABASE_URI"]
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
     app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
-db = SQLAlchemy(app)
-
-from taskmanager import routes
+from . import routes
