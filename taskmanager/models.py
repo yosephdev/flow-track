@@ -1,5 +1,22 @@
 from taskmanager import db
 from datetime import datetime
+from flask_login import UserMixin
+
+class User(db.Model, UserMixin):
+    """
+    User model for storing user information.
+
+    Attributes:
+        id (int): Unique identifier for the user.
+        username (str): Username of the user (unique, not nullable).
+        email (str): Email address of the user (unique, not nullable).
+        password (str): Hashed password of the user (not nullable).
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
+    email = db.Column(db.String(120), nullable=False, unique=True)
+    password = db.Column(db.String(255), nullable=False)   
+    
 
 class Category(db.Model):
     """
