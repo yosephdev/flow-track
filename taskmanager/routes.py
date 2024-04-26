@@ -1,7 +1,43 @@
 from flask import render_template, request, redirect, url_for, flash
 from taskmanager import app, db
-from taskmanager.models import Category, Task
+from taskmanager.models import Category, Task, User
+from flask_login import login_user
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import logout_user, login_required
 
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user = User.query.filter_by(username=request.form['username']).first()
+        if user and check_password_hash(user.password, request.form['password']):
+            login_user(user)
+            flash('Logged in successfully.', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid username or password.', 'danger')
+    return render_template('login.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('home'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = generate_password_hash(request.form['password'])
+        new_user = User(username=username, email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('You have successfully registered. Please log in.', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html')
+    
 @app.route("/")
 def home():
     tasks = list(Task.query.options(db.joinedload(Task.category)).order_by(Task.due_date.desc()).all())
@@ -24,10 +60,11 @@ def add_category():
         return redirect(url_for("categories"))
     return render_template("add_category.html")
 
-@app.route("/tasks")
+@app.route('/tasks')
+@login_required
 def tasks():
-    tasks = list(Task.query.order_by(Task.due_date).all())
-    return render_template("tasks.html", tasks=tasks)
+    tasks = Task.query.all()
+    return render_template('tasks.html', tasks=tasks)
 
 @app.route("/add_task", methods=["GET", "POST"])
 def add_task():
