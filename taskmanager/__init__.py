@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from taskmanager.config import Config
+from config import Config
 
 if os.path.exists("env.py"):
     import env
