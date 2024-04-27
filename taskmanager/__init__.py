@@ -12,8 +12,8 @@ app = Flask(__name__)
 
 app.config.from_object(Config)
 
-db = SQLAlchemy(app)
-
 app.config["SQLALCHEMY_DATABASE_URI"] = app.config["SQLALCHEMY_DATABASE_URI"].replace("postgres://", "postgresql://", 1)
+
+db = SQLAlchemy(app)
 
 from . import routes
