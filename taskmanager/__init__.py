@@ -1,19 +1,18 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from .config import Config
+import sys
 
-try:
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+if os.path.exists("env.py"):
     import env
-except ImportError:
-    pass
 
 app = Flask(__name__)
 
-app.config.from_object(Config)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = app.config["SQLALCHEMY_DATABASE_URI"].replace("postgres://", "postgresql://", 1)
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 
 db = SQLAlchemy(app)
 
-from . import routes
+from taskmanager import routes
