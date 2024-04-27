@@ -1,0 +1,41 @@
+version: 2
+updates:
+  - package-ecosystem: "pip" 
+    directory: "/" 
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "pip"
+      include: "scope"
+    allow:
+      - dependency-type: "direct"
+        dependency-name: "flask*"
+      - dependency-type: "direct" 
+        dependency-name: "flask-sqlalchemy*"
+      - dependency-type: "direct"
+        dependency-name: "sqlalchemy*"
+      - dependency-type: "direct"
+        dependency-name: "werkzeug*"
+      - dependency-type: "direct"
+        dependency-name: "flask-login*"
+    commit-message:
+      prefix: "pip"
+      include: "scope"
+
+  - package-ecosystem: "npm" 
+    directory: "/frontend" 
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "npm"
+      include: "scope"
+    allow:
+      - dependency-type: "direct"
+        dependency-name: "react*"
+      - dependency-type: "direct"
+        dependency-name: "react-dom*"
+      - dependency-type: "direct"
+        dependency-name: "react-scripts*"
+    commit-message:
+      prefix: "npm"
+      include: "scope"
