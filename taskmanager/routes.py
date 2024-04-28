@@ -53,7 +53,22 @@ def reset_password():
         return redirect(url_for('login'))
     return render_template('reset_password.html')
 
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password_with_token(token):
+    email = verify_reset_token(token)
+    if not email:
+        flash('The reset password link has expired. Please request a new one.', 'danger')
+        return redirect(url_for('login'))
     
+    user = User.query.filter_by(email=email).first()
+    if request.method == 'POST':
+        new_password = request.form['new_password']
+        user.password = generate_password_hash(new_password, method='sha256')
+        db.session.commit()
+        flash('Your password has been reset successfully.', 'success')
+        return redirect(url_for('login'))
+    return render_template('reset_password_with_token.html', token=token)   
+
 @app.route("/")
 def home():
     tasks = list(Task.query.options(db.joinedload(Task.category)).order_by(Task.due_date.desc()).all())
