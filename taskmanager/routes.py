@@ -4,7 +4,7 @@ from taskmanager.models import Category, Task, User
 from flask_login import login_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import logout_user, login_required
-
+from flask_login import login_required
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
