@@ -37,6 +37,22 @@ def register():
         flash('You have successfully registered. Please log in.', 'success')
         return redirect(url_for('login'))
     return render_template('register.html')
+
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    if request.method == 'POST':
+        email = request.form['email']
+        user = User.query.filter_by(email=email).first()
+        if user:
+            token = generate_reset_token(user.email)
+            send_reset_password_email(user.email, token)
+            flash('A reset password email has been sent to your registered email address.', 'success')
+        else:
+            flash('No user found with the provided email address.', 'danger')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html')
+
     
 @app.route("/")
 def home():
