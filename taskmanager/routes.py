@@ -98,6 +98,7 @@ def tasks():
     return render_template('tasks.html', tasks=tasks)
 
 @app.route("/add_task", methods=["GET", "POST"])
+@login_required
 def add_task():
     categories = list(Category.query.order_by(Category.category_name).all())
     if request.method == "POST":
