@@ -116,7 +116,8 @@ def add_task():
     return render_template("add_task.html", categories=categories)
 
 @app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])
-def edit_task(task_id):
+@login_required
+def edit_task(task_id):    
     task = Task.query.get_or_404(task_id)
     categories = list(Category.query.order_by(Category.category_name).all())
     if request.method == "POST":
@@ -131,6 +132,7 @@ def edit_task(task_id):
     return render_template("edit_task.html", task=task, categories=categories)
 
 @app.route("/delete_task/<int:task_id>")
+@login_required
 def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
     db.session.delete(task)
